@@ -5,7 +5,7 @@
     - vm_vcenter_vars.yml
   hosts: localhost
   tasks:
-    - name: Clone a virtual machine {{ vm_name }} from existing template {{ template_name }}
+    - name: Clone a virtual machine "{{ vm_name }}" from existing template "{{ rhel75_template_name }}"
       vmware_guest:
         name: "{{ vm_name }}"
         template: "{{ rhel75_template_name }}"
