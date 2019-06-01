@@ -1,0 +1,46 @@
+---
+
+#- hosts: "{{ host }}"
+- hosts: "{{ results }}"
+  #remote_user: ec2-user
+  become: yes
+  gather_facts: no
+
+  # pre_tasks:
+  # - name: 'install python'
+  #   raw: sudo yum -y install python
+  #   #raw: yum -y install python
+  tasks:
+  - name: Disable SSL verification
+    replace:
+      path: /etc/yum.repos.d/redhat-rhui-client-config.repo
+      regexp: 'sslverify=1'
+      replace: 'sslverify=0'
+
+  - name: Execute yum clean all
+    shell: yum clean all
+    args:
+      warn: no
+
+  - name: Install apache packages
+    yum:
+      name: httpd
+      state: present
+  - name: ensure httpd is running
+    service:
+      name: httpd
+      state: started
+
+  - name: Create sample index.html with ownership, group and permissions
+    file:
+      path: /var/www/html/index.html
+      owner: apache
+      group: apache
+      state: touch
+      mode: '0644'
+
+  - name: update index.html by lineinfile module
+    lineinfile:
+      path: /var/www/html/index.html
+      line: <h1><font color="blue"> AWS EC2 Instance </font>Provisioning Demo </h1>
+      state: present

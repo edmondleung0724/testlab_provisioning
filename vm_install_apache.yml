@@ -1,0 +1,53 @@
+---
+- name: Install Apache
+  vars_files:
+    - vm_vcenter_vars.yml
+  hosts: "{{ vm_ip }}"
+  tasks:
+    - name: Add iso repository to the new VM Guest
+      yum_repository:
+        name: yumiso
+        description: yum repo server yum.demo.local
+        baseurl: http://192.168.134.149/iso
+        gpgcheck: no
+        enabled: yes
+
+    - name: Install the latest version of apache and firewall package
+      yum:
+        name:
+          - httpd
+          - firewalld
+        state: latest
+
+    - name: Firewalld enabled and running
+      service:
+        name: firewalld
+        enabled: true
+        state: started
+
+    - name: Firwalld permits http service
+      firewalld:
+        service: http
+        permanent: true
+        state: enabled
+        immediate: yes
+
+    - name: Httpd enabled and running
+      service:
+        name: httpd
+        enabled: true
+        state: started
+
+    - name: Create sample index.html with ownership, group and permissions
+      file:
+        path: /var/www/html/index.html
+        owner: apache
+        group: apache
+        state: touch
+        mode: '0644'
+
+    - name: update index.html by lineinfile module
+      lineinfile:
+        path: /var/www/html/index.html
+        line: <h1><font color="blue"> VMware Virtual Machine </font> Provisioning Demo </h1>
+        state: present
