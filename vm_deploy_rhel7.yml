@@ -38,7 +38,7 @@
     - name: Add host into tower
       tower_host:
         name: "{{ vm_ip }}"
-        inventory: "aeon_new_vm_inv"
+        inventory: "new_vm_inv"
         tower_username: admin
         tower_password: password
         tower_host: https://192.168.134.138
