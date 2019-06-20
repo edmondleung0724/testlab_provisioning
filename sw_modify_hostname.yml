@@ -8,5 +8,5 @@
       ios_config:
         username: ansibleuser
         password: P@ssw0rd
-        lines: hostname 2960sw2
+        lines: hostname 2960sw
         authorize: yes
