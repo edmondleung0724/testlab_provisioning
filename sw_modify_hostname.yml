@@ -1,0 +1,12 @@
+---
+- hosts: all
+  gather_facts: yes
+  connection: local
+
+  tasks:
+    - name: configure hostname
+      ios_config:
+        username: ansibleuser
+        password: P@ssw0rd
+        lines: hostname 2960sw
+        authorize: yes
