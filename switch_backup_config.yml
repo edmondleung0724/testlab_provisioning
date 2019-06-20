@@ -1,0 +1,22 @@
+---
+- hosts: all
+  gather_facts: true
+  connection: local
+
+  tasks:
+    - name: show run
+      ios_command:
+        commands:
+          - show run
+        username: ansibleuser
+        password: P@ssw0rd
+      register: show_run_config
+
+    - name: Get time stamp
+      command: date +%Y%m%d
+      register: timestamp
+
+    - name: Backup Show Run Configuration
+      copy:
+        content: "{{ show_run_config.stdout[0] }}"
+        dest: backup/running-config_{{ timestamp.stdout }}
