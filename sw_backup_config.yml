@@ -19,4 +19,4 @@
     - name: Backup Show Run Configuration
       copy:
         content: "{{ show_run_config.stdout[0] }}"
-        dest: backup/running-config_{{ timestamp.stdout }}
+        dest: running-config_{{ timestamp.stdout }}
