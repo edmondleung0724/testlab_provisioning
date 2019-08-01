@@ -2,7 +2,6 @@
 - hosts: all
   gather_facts: true
   connection: local
-  deprecation_warnings: False
 
   tasks:
     - name: show run
