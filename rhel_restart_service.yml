@@ -1,0 +1,7 @@
+---
+- hosts: all
+  tasks:
+  - name: Restart service, in all cases
+    systemd:
+      name: "{{ service_name }}"
+      state: restarted
