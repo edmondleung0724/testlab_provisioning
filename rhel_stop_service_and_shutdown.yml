@@ -1,6 +1,5 @@
 ---
 - name: Ansible Demo for Linux
-  become: yes
   tasks:
     - name: Stop httpd service
       service:
