@@ -1,0 +1,11 @@
+---
+- name: Ansible Demo for Windows
+  hosts: 192.168.134.150
+  tasks:
+    - name: Stop Windows Firewall
+      win_service:
+        name: Windows Firewall
+        state: stopped
+
+    - name: Shutdown
+      win_command: shutdown /s
