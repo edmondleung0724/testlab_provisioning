@@ -13,4 +13,4 @@
         state: stopped
 
     - name: Shutdown machine
-      command: /sbin/shutdown -h now
+      command: /sbin/shutdown -h +1
