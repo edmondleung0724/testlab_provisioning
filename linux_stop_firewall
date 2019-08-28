@@ -1,0 +1,8 @@
+---
+- name: Ansible Demo for Linux
+  hosts: all
+  tasks:
+    - name: Stop firewalld service
+      service:
+        name: firewalld
+        state: stopped
