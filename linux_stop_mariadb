@@ -1,0 +1,8 @@
+---
+- name: Ansible Demo for Linux
+  hosts: all
+  tasks:
+    - name: Stop mariadb service
+      service:
+        name: mariadb
+        state: stopped
