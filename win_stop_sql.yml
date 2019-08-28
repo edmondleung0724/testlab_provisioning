@@ -1,0 +1,8 @@
+---
+- name: Ansible Demo for Windows
+  hosts: 192.168.134.150
+  tasks:
+    - name: Stop IIS
+      win_service:
+        name: SQL Server (SQLEXPRESS)
+        state: stopped
