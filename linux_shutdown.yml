@@ -1,0 +1,6 @@
+---
+- name: Ansible Demo for Linux
+  hosts: all
+  tasks:
+    - name: Shutdown Linux
+      command: /sbin/shutdown -h +1
