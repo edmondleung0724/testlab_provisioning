@@ -19,7 +19,7 @@
 - network: VM Network
 - folder: /Asia-Datacenter1/vm/
 - vm_ip: 192.168.134.172
-- dns_server: 192.168.8.235
+- dns_server: 192.168.134.139
 
 # Snapshot settings
 - snapshot: fresh_installation
