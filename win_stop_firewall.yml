@@ -3,4 +3,9 @@
   hosts: all
   tasks:
     - name: Stop Windows Firewall
-      win_command: netsh advfirewall set AllProfiles state off
+      win_firewall:
+        state: disabled
+        profiles:
+        - Domain
+        - Private
+        - Public
