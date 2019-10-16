@@ -1,6 +1,6 @@
 ---
 - name: Ansible Demo for Windows
-  hosts: 192.168.134.150
+  hosts: all
   tasks:
     - name: Stop MSSQL
       win_service:
