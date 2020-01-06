@@ -1,0 +1,67 @@
+---
+- name: Guest Creation
+  gather_facts: no
+  vars_files:
+    - vm_vcenter_vars.yml
+  hosts: localhost
+  tasks:
+    - name: Clone a virtual machine "{{ vm_name }}" from existing template "{{ rhel75_template_name }}"
+      vmware_guest:
+        name: "{{ vm_name }}"
+        template: "{{ rhel75_template_name }}"
+        hostname: "{{ vcenter_server }}"
+        username: "{{ vcenter_user }}"
+        password: "{{ vcenter_pass }}"
+        validate_certs: no
+        folder: "{{ folder }}"
+        datacenter: "{{ datacenter }}"
+        networks:
+          - name: "{{ network }}"
+            ip: "{{ vm_ip }}"
+            netmask: 255.255.128.0
+            gateway: 192.168.128.1
+        cluster: "{{ cluster }}"
+        customization:
+          dns_servers: "{{ dns_server }}"
+        wait_for_ip_address: yes
+      register: vm_result
+
+#    - name: Collect the New VM hw_name and hw_product_uuid
+#      set_stats:
+#        data:
+#          vm_ansible_inv_host: "{{ vm_result.instance.hw_name }}_{{ vm_result.instance.hw_product_uuid }}"
+
+    - name: Print the New VM ip info
+      debug:
+        msg: "{{ vm_ip }}"
+
+    - name: Add host into tower
+      tower_host:
+        name: "{{ vm_ip }}"
+        inventory: "new_vm_inv"
+        tower_username: admin
+        tower_password: password
+        tower_host: https://192.168.134.138
+        tower_verify_ssl: no
+
+    - name: Assert that VM is created
+      assert:
+        that:
+          - "vm_result.changed"
+
+    - name: Create a virtual machine {{ vm_name }} snapshot name {{ snapshot }}
+      vmware_guest_snapshot:
+        name: "{{ vm_name }}"
+        hostname: "{{ vcenter_server }}"
+        username: "{{ vcenter_user }}"
+        password: "{{ vcenter_pass }}"
+        validate_certs: False
+        folder: "{{ folder }}"
+        datacenter: "{{ datacenter }}"
+        snapshot_name: "{{ snapshot }}"
+      register: snapshot_result
+
+    - name: Assert that VM snapshot is created
+      assert:
+        that:
+          - "snapshot_result.changed"
