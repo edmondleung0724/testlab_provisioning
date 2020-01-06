@@ -1,0 +1,25 @@
+---
+# Global Settings
+- vcenter_server: vcenter65.demo.local
+- vcenter_user: administrator@vsphere.local
+- vcenter_pass: P@ssw0rd
+- datacenter: Asia-Datacenter1
+- cluster: Asia-Cluster1
+
+# ESXi settings
+- esxi_hostname: esxiserver01.demo.local
+- esxi_username: root
+- esxi_password: Abcd1234
+
+# VM settings
+- vm_name: VM_172
+- rhel75_template_name: rhel75_template
+- w2012_template_name: w2012_template
+- datastore: datastore1
+- network: VM Network
+- folder: /Asia-Datacenter1/vm/
+- vm_ip: 192.168.134.172
+- dns_server: 192.168.134.139
+
+# Snapshot settings
+- snapshot: fresh_installation
