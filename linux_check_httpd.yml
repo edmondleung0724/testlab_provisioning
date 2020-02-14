@@ -1,0 +1,10 @@
+---
+- name: Health Check
+  hosts: all
+
+  tasks:
+    - name: Ensure httpd service is started and enabled
+      service:
+        name: httpd
+        state: started
+        enabled: yes
