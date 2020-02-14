@@ -1,0 +1,7 @@
+---
+- name: Install Chrony
+  hosts: all
+
+  tasks:
+    - name: install the latest version of Chrony
+      command: yum install chrony -y
